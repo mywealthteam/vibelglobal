@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibel Global — Trusted Marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+:root{
+  --bg:#080C0B;
+  --surface:#0D1F1A;
+  --surface2:#0F2820;
+  --border:#1A3028;
+  --border2:#243D32;
+  --green:#1D9E75;
+  --green-dark:#0F6E56;
+  --green-dim:#0D2E22;
+  --green-muted:#2E6B56;
+  --text:#FFFFFF;
+  --text2:#8BA89A;
+  --text3:#4A6B5C;
+  --amber:#D4943A;
+  --red:#E24B4A;
+  --blue:#3B82F6;
+  --purple:#8B5CF6;
+  --radius:8px;
+  --radius-lg:12px;
+  --radius-xl:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);font-size:13px;overflow:hidden;height:100vh}
+input,button,select{font-family:'Space Grotesk',sans-serif}
+
+/* LAYOUT */
+.app{display:grid;grid-template-columns:210px 1fr;grid-template-rows:52px 1fr;height:100vh;overflow:hidden}
+.topbar{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:0 16px;background:var(--surface);border-bottom:1px solid var(--border);z-index:10}
+
+/* LOGO */
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+.logo-mark{width:30px;height:30px;border-radius:7px;background:var(--green-dim);border:1px solid var(--green);display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:6px;flex-shrink:0}
+.logo-sq{border-radius:1.5px}
+.logo-sq.on{background:var(--green)}
+.logo-sq.off{background:var(--green);opacity:0.22}
+.logo-word{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;color:var(--text);line-height:1}
+.logo-word .e{color:var(--green)}
+.logo-badge{font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:500;letter-spacing:2px;color:var(--green-muted);background:var(--green-dim);border:1px solid var(--border);border-radius:4px;padding:2px 6px;text-transform:uppercase}
+
+.search-bar{flex:1;display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:6px 12px;max-width:340px;cursor:text}
+.search-bar i{color:var(--text3);font-size:14px}
+.search-bar span{font-size:12px;color:var(--text3)}
+.locale-btn{display:flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:5px 10px;font-size:11px;color:var(--text2);cursor:pointer;transition:border-color .15s;white-space:nowrap}
+.locale-btn:hover{border-color:var(--green);color:var(--green)}
+.topbar-right{display:flex;align-items:center;gap:6px;margin-left:auto}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--text2);font-size:16px;position:relative;padding:5px;border-radius:var(--radius);transition:color .15s,background .15s}
+.icon-btn:hover{color:var(--green);background:var(--green-dim)}
+.ndot{position:absolute;top:2px;right:2px;width:6px;height:6px;border-radius:50%;background:var(--red);border:1.5px solid var(--surface)}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--bg);cursor:pointer;flex-shrink:0}
+
+/* SIDEBAR */
+.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:10px 0;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:none}
+.sidebar::-webkit-scrollbar{display:none}
+.slabel{font-size:9px;font-weight:500;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;padding:10px 14px 4px}
+.nav{display:flex;align-items:center;gap:8px;padding:7px 14px;font-size:12px;color:var(--text2);cursor:pointer;transition:background .1s,color .1s;position:relative}
+.nav:hover{background:var(--green-dim);color:var(--text)}
+.nav.on{background:var(--green-dim);color:var(--green)}
+.nav.on i{color:var(--green)}
+.nav.on::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:2px;background:var(--green);border-radius:0 2px 2px 0}
+.nav i{font-size:14px;color:var(--text3);flex-shrink:0;transition:color .1s}
+.npill{margin-left:auto;background:var(--green);color:var(--bg);font-size:9px;font-weight:600;padding:1px 5px;border-radius:999px;line-height:1.4}
+.npill-r{background:var(--red);color:#fff}
+.npill-a{background:var(--amber);color:var(--bg)}
+
+/* MAIN */
+.main{overflow-y:auto;padding:18px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.pg{display:none}.pg.on{display:block}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.pt{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.3px}
+.btn-g{background:var(--green);color:var(--bg);border:none;padding:7px 14px;border-radius:var(--radius);font-size:12px;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:5px;transition:background .15s;white-space:nowrap}
+.btn-g:hover{background:var(--green-dark)}
+.btn-g i{font-size:13px}
+.btn-o{background:none;color:var(--text2);border:1px solid var(--border);padding:6px 12px;border-radius:var(--radius);font-size:12px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .15s}
+.btn-o:hover{border-color:var(--green);color:var(--green)}
+
+/* ALERT BOXES */
+.alert{display:flex;align-items:flex-start;gap:8px;padding:10px 13px;border-radius:var(--radius);margin-bottom:12px;font-size:11px;line-height:1.5}
+.alert i{font-size:13px;flex-shrink:0;margin-top:1px}
+.alert-success{background:#0A2218;border:1px solid var(--green-dark);color:#7DDBB7}
+.alert-info{background:#0A1628;border:1px solid #1E4080;color:#7BB3F0}
+.alert-warn{background:#1E1200;border:1px solid #5C3A00;color:#D4943A}
+.alert-danger{background:#1E0A0A;border:1px solid #7A2020;color:#F08080}
+
+/* STATS GRID */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px}
+.sl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.sv{font-size:20px;font-weight:700;color:var(--text);font-family:'Syne',sans-serif;letter-spacing:-0.5px}
+.sd{font-size:10px;margin-top:3px;color:var(--green)}
+.sd.neg{color:var(--red)}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:13px;cursor:pointer;transition:border-color .15s,background .15s}
+.card:hover{border-color:var(--green-muted);background:var(--surface2)}
+.card.hidden{display:none}
+.ctag{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.ctag.jobs{color:var(--blue)}.ctag.house{color:var(--amber)}.ctag.sale{color:#E2834A}.ctag.svc{color:var(--purple)}.ctag.comm{color:var(--green)}.ctag.auto{color:#2DB8A0}.ctag.ev{color:var(--amber)}.ctag.comp{color:var(--blue)}
+.cn{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;line-height:1.3}
+.cm{font-size:10px;color:var(--text3);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.cm i{font-size:10px}
+.cp{font-size:12px;font-weight:600;color:var(--green);margin-top:5px;font-family:'Syne',sans-serif}
+.vb{display:inline-flex;align-items:center;gap:2px;background:#0A2218;color:#7DDBB7;font-size:8px;font-weight:500;padding:2px 6px;border-radius:999px;margin-top:4px;border:1px solid #1A5A3A}
+.vb i{font-size:8px}
+.rb{display:inline-flex;align-items:center;gap:2px;background:#0A1628;color:#7BB3F0;font-size:8px;padding:2px 6px;border-radius:999px;margin-top:4px;margin-left:3px;border:1px solid #1E3A6A}
+.wb{display:inline-flex;align-items:center;gap:2px;background:#1A1000;color:var(--amber);font-size:8px;padding:2px 6px;border-radius:999px;margin-top:4px;margin-left:3px;border:1px solid #4A2800}
+
+/* CATEGORY TILES */
+.cat-tile{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 8px;text-align:center;cursor:pointer;transition:all .15s}
+.cat-tile:hover,.cat-tile.act{border-color:var(--green);background:var(--green-dim)}
+.cat-tile:hover .ctl,.cat-tile.act .ctl{color:var(--text)}
+.cat-tile i{font-size:22px;display:block;margin-bottom:6px}
+.ctl{font-size:11px;color:var(--text2);font-weight:500;transition:color .15s}
+.ctc{font-size:9px;color:var(--text3);margin-top:2px}
+
+/* FILTER BARS */
+.fbar{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap}
+.fb{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:5px 10px;font-size:10px;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:3px;transition:all .15s;user-select:none}
+.fb:hover,.fb.act{border-color:var(--green);color:var(--green);background:var(--green-dim)}
+.rc{font-size:10px;color:var(--text3);margin-bottom:8px}
+
+/* JOB ROWS */
+.row-job{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:11px 13px;display:flex;align-items:center;gap:11px;cursor:pointer;margin-bottom:6px;transition:all .15s}
+.row-job:hover{border-color:var(--green-muted);background:var(--surface2)}
+.row-job.hidden{display:none}
+.jl{width:34px;height:34px;border-radius:8px;background:var(--green-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ji{flex:1;min-width:0}
+.jt{font-size:12px;font-weight:500;color:var(--text)}
+.jc{font-size:10px;color:var(--text2);margin-top:1px}
+.jtags{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
+.tag{font-size:9px;padding:2px 7px;border-radius:999px;border:1px solid var(--border);color:var(--text2);background:var(--bg)}
+.tag.remote{background:#0A2218;color:#7DDBB7;border-color:#1A5A3A}
+.tag.full{background:#0A1628;color:#7BB3F0;border-color:#1E3A6A}
+.tag.part{background:#1A1000;color:var(--amber);border-color:#4A2800}
+.tag.hot{background:#1E0A0A;color:#F08080;border-color:#7A2020}
+.js{font-size:12px;font-weight:600;color:var(--green);text-align:right;white-space:nowrap;font-family:'Syne',sans-serif}
+
+/* MESSAGES */
+.msg-wrap{display:grid;grid-template-columns:190px 1fr;height:480px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.msg-list{border-right:1px solid var(--border);overflow-y:auto;scrollbar-width:none}
+.msg-item{padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .1s}
+.msg-item:hover,.msg-item.on{background:var(--green-dim)}
+.mi-name{font-size:11px;font-weight:500;color:var(--text)}
+.mi-prev{font-size:9px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mi-time{font-size:8px;color:var(--text3)}
+.msg-chat{display:flex;flex-direction:column}
+.mc-head{padding:10px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.mc-title{font-size:12px;font-weight:500;color:var(--text)}
+.mc-sub{font-size:9px;color:var(--text3);margin-top:1px}
+.mc-msgs{flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.bub{max-width:76%;padding:7px 10px;border-radius:10px;font-size:11px;line-height:1.5}
+.bub.them{background:var(--surface2);color:var(--text);align-self:flex-start;border-radius:2px 10px 10px 10px;border:1px solid var(--border)}
+.bub.me{background:var(--green);color:var(--bg);align-self:flex-end;border-radius:10px 2px 10px 10px;font-weight:500}
+.mc-inp{padding:10px;border-top:1px solid var(--border);display:flex;gap:7px}
+.mc-input{flex:1;border:1px solid var(--border);border-radius:var(--radius);padding:6px 10px;font-size:11px;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s}
+.mc-input:focus{border-color:var(--green)}
+.mc-send{background:var(--green);border:none;border-radius:var(--radius);padding:6px 10px;cursor:pointer;color:var(--bg);font-size:14px;transition:background .15s}
+.mc-send:hover{background:var(--green-dark)}
+
+/* AI ASSISTANT */
+.ai-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px;min-height:360px;display:flex;flex-direction:column}
+.ai-msgs{flex:1;display:flex;flex-direction:column;gap:7px;margin-bottom:12px;overflow-y:auto;max-height:250px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.ai-bub{max-width:84%;padding:9px 12px;border-radius:10px;font-size:12px;line-height:1.5}
+.ai-bub.bot{background:var(--surface2);color:var(--text);align-self:flex-start;border:1px solid var(--border);border-radius:2px 10px 10px 10px}
+.ai-bub.user{background:var(--green);color:var(--bg);align-self:flex-end;border-radius:10px 2px 10px 10px;font-weight:500}
+.ai-inp-row{display:flex;gap:7px}
+.ai-input{flex:1;border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:12px;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s}
+.ai-input:focus{border-color:var(--green)}
+.ai-send{background:var(--green);border:none;border-radius:var(--radius);padding:8px 11px;cursor:pointer;color:var(--bg);font-size:15px;transition:background .15s}
+.ai-send:hover{background:var(--green-dark)}
+.chip{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 11px;font-size:10px;color:var(--text2);cursor:pointer;transition:all .15s}
+.chip:hover{border-color:var(--green);color:var(--green);background:var(--green-dim)}
+.quick-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+
+/* POLICY / TRUST */
+.rule-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.rule-num{font-size:10px;font-weight:600;color:var(--green);width:22px;flex-shrink:0;padding-top:1px;font-family:'Syne',sans-serif}
+.rule-t{font-size:11px;font-weight:500;color:var(--text);margin-bottom:2px}
+.rule-d{font-size:10px;color:var(--text2);line-height:1.5}
+.banned-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.banned-item{display:flex;align-items:flex-start;gap:8px;background:var(--surface);border:1px solid #3A1010;border-radius:var(--radius);padding:10px}
+.bi-icon{width:28px;height:28px;background:#1E0A0A;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:13px;color:#F08080;flex-shrink:0}
+.bi-t{font-size:11px;font-weight:500;color:#F08080;margin-bottom:2px}
+.bi-d{font-size:9px;color:#8A4040;line-height:1.4}
+.trust-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.tr-icon{width:32px;height:32px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.tr-t{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px}
+.tr-d{font-size:10px;color:var(--text2);line-height:1.5}
+
+/* COMPLIANCE */
+.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:13px}
+.cc-row{display:flex;justify-content:space-between;font-size:10px;padding:4px 0;border-bottom:1px solid var(--border)}
+.cc-row:last-child{border:none}
+.cc-row span:first-child{color:var(--text2)}
+.cc-row span:last-child{font-weight:500;color:var(--green)}
+.country-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
+.country-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:10px 8px;text-align:center;cursor:pointer;transition:all .15s}
+.country-card:hover,.country-card.sel{border-color:var(--green);background:var(--green-dim)}
+.cf{font-size:20px;margin-bottom:4px}
+.cn2{font-size:10px;font-weight:500;color:var(--text)}
+.cs{font-size:8px;color:var(--text3);margin-top:2px}
+.cs-live{color:var(--green)}
+
+/* CHARTS */
+.chart-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:13px}
+.chart-title{font-size:10px;font-weight:500;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.08em}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.bar-label{font-size:10px;color:var(--text2);width:80px;text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:8px;background:var(--bg);border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;background:var(--green);border-radius:999px}
+.bar-val{font-size:10px;color:var(--text2);width:36px;text-align:right;flex-shrink:0}
+
+/* PLAN CARDS */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.plan-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px}
+.plan-card.feat{border:1px solid var(--green)}
+.plan-name{font-size:13px;font-weight:600;color:var(--text);font-family:'Syne',sans-serif}
+.plan-price{font-size:26px;font-weight:800;color:var(--text);margin:8px 0 2px;font-family:'Syne',sans-serif;letter-spacing:-0.5px}
+.plan-per{font-size:10px;color:var(--text3)}
+.pop-b{display:inline-block;background:var(--green-dim);color:var(--green);font-size:8px;font-weight:600;padding:2px 8px;border-radius:999px;margin-bottom:6px;border:1px solid var(--green-dark);letter-spacing:1px;text-transform:uppercase}
+.pf{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);margin-top:5px}
+.pf i{font-size:11px;color:var(--green)}
+.pf.no i{color:var(--red)}
+.pf.no{color:var(--text3)}
+
+/* REVIEWS */
+.review-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px;margin-bottom:7px}
+.ri-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.ri-user{display:flex;align-items:center;gap:8px}
+.ri-av{width:26px;height:26px;border-radius:50%;background:var(--green-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--green)}
+.ri-name{font-size:11px;font-weight:500;color:var(--text)}
+.ri-date{font-size:8px;color:var(--text3)}
+.ri-stars{color:var(--amber);font-size:11px}
+.ri-text{font-size:10px;color:var(--text2);line-height:1.5}
+
+/* DISPUTES */
+.dispute-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:11px;margin-bottom:7px;display:flex;align-items:center;gap:10px}
+.di-s{font-size:8px;padding:3px 8px;border-radius:999px;font-weight:600;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase}
+.di-o{background:#1A1000;color:var(--amber);border:1px solid #4A2800}
+.di-r{background:#0A2218;color:#7DDBB7;border:1px solid #1A5A3A}
+.di-v{background:#0A1628;color:#7BB3F0;border:1px solid #1E3A6A}
+.di-info{flex:1}
+.di-t{font-size:11px;font-weight:500;color:var(--text)}
+.di-d{font-size:9px;color:var(--text3);margin-top:2px}
+
+/* NOTIFS */
+.notif-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.ni{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ni-g{background:#0A2218;color:var(--green)}.ni-b{background:#0A1628;color:#7BB3F0}.ni-a{background:#1A1000;color:var(--amber)}.ni-r{background:#1E0A0A;color:#F08080}
+.nt{font-size:11px;color:var(--text)}
+.ns{font-size:9px;color:var(--text3);margin-top:2px}
+
+/* SECTION LABEL */
+.sec-title{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px;margin-top:16px}
+
+/* PROFILE */
+.profile-wrap{display:grid;grid-template-columns:200px 1fr;gap:14px}
+.profile-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;text-align:center}
+.pav{width:56px;height:56px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:var(--bg);margin:0 auto 10px;font-family:'Syne',sans-serif}
+.pname{font-size:15px;font-weight:700;color:var(--text);font-family:'Syne',sans-serif}
+.prole{font-size:10px;color:var(--text2);margin-top:2px}
+.pstars{color:var(--amber);font-size:13px;margin-top:6px}
+.pstat{font-size:9px;color:var(--text3);margin-top:2px}
+.pdiv{border-top:1px solid var(--border);margin:10px 0}
+.prow{display:flex;justify-content:space-between;font-size:10px;padding:3px 0}
+.prow span:first-child{color:var(--text2)}
+.prow span:last-child{font-weight:500;color:var(--text)}
+
+/* SETTINGS */
+.set-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px;cursor:pointer;transition:border-color .15s}
+.set-card:hover{border-color:var(--green-muted)}
+.set-head{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.set-head i{font-size:16px;color:var(--green)}
+.set-head-t{font-size:12px;font-weight:500;color:var(--text)}
+.set-detail{font-size:10px;color:var(--text2);line-height:1.7}
+
+/* TRENDING */
+.trend-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.trend-rank{font-size:14px;font-weight:800;color:var(--text3);width:22px;font-family:'Syne',sans-serif}
+.trend-info{flex:1}
+.trend-t{font-size:11px;color:var(--text);font-weight:500}
+.trend-s{font-size:9px;color:var(--text3);margin-top:1px}
+.trend-delta{font-size:10px;color:var(--green);font-weight:600}
+
+/* CURRENCY ROW */
+.cur-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:11px}
+.cur-row span:first-child{color:var(--text2)}
+.cur-row span:last-child{color:var(--green);font-weight:500}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="logo" href="#" onclick="showPage('home')">
+    <div class="logo-mark">
+      <div class="logo-sq on"></div>
+      <div class="logo-sq off"></div>
+      <div class="logo-sq off"></div>
+      <div class="logo-sq on"></div>
+    </div>
+    <div class="logo-word">VIB<span class="e">E</span>L</div>
+    <div class="logo-badge">Global</div>
+  </a>
+  <div class="search-bar"><i class="ti ti-search"></i><span>Search across 47 countries…</span></div>
+  <div class="locale-btn" onclick="showPage('regions')"><i class="ti ti-map-pin" style="font-size:12px"></i><span id="localeDisplay">US · USD · EN</span><i class="ti ti-chevron-down" style="font-size:11px"></i></div>
+  <div class="topbar-right">
+    <button class="icon-btn" onclick="showPage('notifs')" aria-label="Notifications"><i class="ti ti-bell"></i><span class="ndot"></span></button>
+    <button class="icon-btn" onclick="showPage('messages')" aria-label="Messages"><i class="ti ti-message"></i></button>
+    <button class="icon-btn" onclick="showPage('compliance')" aria-label="Compliance"><i class="ti ti-shield-check"></i></button>
+    <button class="icon-btn" onclick="showPage('aiassist')" aria-label="AI Assistant"><i class="ti ti-robot"></i></button>
+    <div class="avatar" onclick="showPage('profile')">MM</div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="slabel">Marketplace</div>
+  <div class="nav on" data-page="home" onclick="showPage('home')"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
+  <div class="nav" data-page="jobs" onclick="showPage('jobs')"><i class="ti ti-briefcase"></i>Jobs<span class="npill">312</span></div>
+  <div class="nav" data-page="housing" onclick="showPage('housing')"><i class="ti ti-home"></i>Housing</div>
+  <div class="nav" data-page="forsale" onclick="showPage('forsale')"><i class="ti ti-tag"></i>For Sale</div>
+  <div class="nav" data-page="services" onclick="showPage('services')"><i class="ti ti-tool"></i>Services</div>
+  <div class="nav" data-page="autos" onclick="showPage('autos')"><i class="ti ti-car"></i>Autos</div>
+  <div class="nav" data-page="community" onclick="showPage('community')"><i class="ti ti-users"></i>Community</div>
+  <div class="nav" data-page="trending" onclick="showPage('trending')"><i class="ti ti-trending-up"></i>Trending</div>
+  <div class="slabel">Global</div>
+  <div class="nav" data-page="regions" onclick="showPage('regions')"><i class="ti ti-world"></i>Regions &amp; Markets</div>
+  <div class="nav" data-page="currency" onclick="showPage('currency')"><i class="ti ti-currency-dollar"></i>Currency &amp; Payments</div>
+  <div class="nav" data-page="compliance" onclick="showPage('compliance')"><i class="ti ti-shield-check"></i>Compliance Center</div>
+  <div class="nav" data-page="policies" onclick="showPage('policies')"><i class="ti ti-file-text"></i>Platform Policies</div>
+  <div class="nav" data-page="banned" onclick="showPage('banned')"><i class="ti ti-ban"></i>Prohibited Items</div>
+  <div class="nav" data-page="trust" onclick="showPage('trust')"><i class="ti ti-lock"></i>Trust &amp; Safety</div>
+  <div class="slabel">Account</div>
+  <div class="nav" data-page="messages" onclick="showPage('messages')"><i class="ti ti-message"></i>Messages<span class="npill npill-r">3</span></div>
+  <div class="nav" data-page="profile" onclick="showPage('profile')"><i class="ti ti-user"></i>My Profile</div>
+  <div class="nav" data-page="mylistings" onclick="showPage('mylistings')"><i class="ti ti-list"></i>My Listings</div>
+  <div class="nav" data-page="reviews" onclick="showPage('reviews')"><i class="ti ti-star"></i>Reviews</div>
+  <div class="nav" data-page="disputes" onclick="showPage('disputes')"><i class="ti ti-scale"></i>Disputes</div>
+  <div class="nav" data-page="analytics" onclick="showPage('analytics')"><i class="ti ti-chart-bar"></i>Analytics</div>
+  <div class="nav" data-page="pricing" onclick="showPage('pricing')"><i class="ti ti-credit-card"></i>Pricing Plans</div>
+  <div class="nav" data-page="aiassist" onclick="showPage('aiassist')"><i class="ti ti-robot"></i>AI Assistant</div>
+  <div class="nav" data-page="settings" onclick="showPage('settings')"><i class="ti ti-settings"></i>Settings</div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- HOME -->
+<div id="pg-home" class="pg on">
+  <div class="ph">
+    <div class="pt">Good morning, Mitti</div>
+    <button class="btn-g"><i class="ti ti-plus"></i>Post Listing</button>
+  </div>
+  <div class="alert alert-success"><i class="ti ti-world"></i>Vibel is live across 47 countries with localized currency, language, and compliance. Your listings are visible globally by default.</div>
+  <div class="stats">
+    <div class="sc"><div class="sl">Global Listings</div><div class="sv">284K</div><div class="sd"><i class="ti ti-arrow-up" style="font-size:9px"></i> +8% this week</div></div>
+    <div class="sc"><div class="sl">Countries Active</div><div class="sv">47</div><div class="sd">12 launching Q3</div></div>
+    <div class="sc"><div class="sl">Verified Users</div><div class="sv">94%</div><div class="sd">KYC compliant</div></div>
+    <div class="sc"><div class="sl">Currencies Live</div><div class="sv">38</div><div class="sd">Real-time FX</div></div>
+  </div>
+  <div class="sec-title">Browse categories</div>
+  <div class="g4" id="homeCats">
+    <div class="cat-tile" data-target="jobs"><i class="ti ti-briefcase" style="color:#3B82F6"></i><div class="ctl">Jobs</div><div class="ctc">1,247 global</div></div>
+    <div class="cat-tile" data-target="housing"><i class="ti ti-home" style="color:#D4943A"></i><div class="ctl">Housing</div><div class="ctc">8,312 global</div></div>
+    <div class="cat-tile" data-target="forsale"><i class="ti ti-tag" style="color:#E2834A"></i><div class="ctl">For Sale</div><div class="ctc">62K items</div></div>
+    <div class="cat-tile" data-target="services"><i class="ti ti-tool" style="color:#8B5CF6"></i><div class="ctl">Services</div><div class="ctc">14K pros</div></div>
+    <div class="cat-tile" data-target="autos"><i class="ti ti-car" style="color:#2DB8A0"></i><div class="ctl">Autos</div><div class="ctc">9,800 vehicles</div></div>
+    <div class="cat-tile" data-target="forsale"><i class="ti ti-device-laptop" style="color:#D4943A"></i><div class="ctl">Tech</div><div class="ctc">21K items</div></div>
+    <div class="cat-tile" data-target="community"><i class="ti ti-users" style="color:#1D9E75"></i><div class="ctl">Community</div><div class="ctc">3,100 events</div></div>
+    <div class="cat-tile" data-target="regions"><i class="ti ti-world" style="color:#3B82F6"></i><div class="ctl">Regions</div><div class="ctc">47 countries</div></div>
+  </div>
+  <div class="sec-title">Featured near you &amp; globally</div>
+  <div class="g3">
+    <div class="card" onclick="showPage('jobs')"><div class="ctag jobs">Jobs · Remote</div><div class="cn">Senior Data Analyst</div><div class="cm"><i class="ti ti-map-pin"></i>Global · 1h ago</div><div class="cp">$95K–$120K/yr</div><div class="vb"><i class="ti ti-shield-check"></i>Verified employer</div><div class="rb"><i class="ti ti-world"></i>Global listing</div></div>
+    <div class="card" onclick="showPage('services')"><div class="ctag svc">Services · UK</div><div class="cn">Power BI Consulting</div><div class="cm"><i class="ti ti-map-pin"></i>London · Remote OK</div><div class="cp">£400/day</div><div class="vb"><i class="ti ti-shield-check"></i>ID verified</div></div>
+    <div class="card" onclick="showPage('forsale')"><div class="ctag sale">For Sale · NG</div><div class="cn">HP Laptop — Like New</div><div class="cm"><i class="ti ti-map-pin"></i>Lagos · 2h ago</div><div class="cp">₦ 450,000</div><div class="vb"><i class="ti ti-shield-check"></i>ID verified</div></div>
+    <div class="card" onclick="showPage('housing')"><div class="ctag house">Housing · CA</div><div class="cn">2BR Condo — Toronto</div><div class="cm"><i class="ti ti-map-pin"></i>Toronto · 3h ago</div><div class="cp">CA$2,400/mo</div><div class="vb"><i class="ti ti-shield-check"></i>ID verified</div></div>
+    <div class="card" onclick="showPage('autos')"><div class="ctag auto">Autos · DE</div><div class="cn">2020 VW Golf — 32K km</div><div class="cm"><i class="ti ti-map-pin"></i>Berlin · 4h ago</div><div class="cp">€ 18,500</div><div class="vb"><i class="ti ti-shield-check"></i>Verified seller</div></div>
+    <div class="card" onclick="showPage('jobs')"><div class="ctag jobs">Jobs · GH</div><div class="cn">IT Security Manager</div><div class="cm"><i class="ti ti-map-pin"></i>Accra · 5h ago</div><div class="cp">GH₵ 12,000/mo</div><div class="vb"><i class="ti ti-shield-check"></i>Verified employer</div></div>
+  </div>
+</div>
+
+<!-- JOBS -->
+<div id="pg-jobs" class="pg">
+  <div class="ph"><div class="pt">Jobs — global board</div><button class="btn-g"><i class="ti ti-plus"></i>Post a Job</button></div>
+  <div class="fbar" id="jobsFilters">
+    <div class="fb act" data-filter="all">All</div>
+    <div class="fb" data-filter="remote"><i class="ti ti-wifi" style="font-size:10px"></i>Remote</div>
+    <div class="fb" data-filter="full">Full-time</div>
+    <div class="fb" data-filter="contract">Contract</div>
+    <div class="fb" data-filter="high">$80K+</div>
+    <div class="fb" data-filter="hot"><i class="ti ti-flame" style="font-size:10px"></i>Hot</div>
+    <div class="fb" data-filter="africa">Africa</div>
+    <div class="fb" data-filter="europe">Europe</div>
+    <div class="fb" data-filter="verified"><i class="ti ti-shield-check" style="font-size:10px"></i>Verified only</div>
+  </div>
+  <div id="jobCount" class="rc">Showing 7 jobs</div>
+  <div id="jobsList">
+    <div class="row-job" data-tags="remote full high hot verified"><div class="jl">💼</div><div class="ji"><div class="jt">Senior Data Analyst</div><div class="jc">TechVentures Inc. · Global Remote</div><div class="jtags"><span class="tag remote">Remote</span><span class="tag full">Full-time</span><span class="tag hot">Hot</span><span class="tag">SQL · Tableau</span></div></div><div class="js">$95–$120K</div></div>
+    <div class="row-job" data-tags="remote contract hot"><div class="jl">🛒</div><div class="ji"><div class="jt">AI Operations Analyst</div><div class="jc">RetailFlex · Remote</div><div class="jtags"><span class="tag remote">Remote</span><span class="tag part">Contract</span><span class="tag hot">Hot</span></div></div><div class="js">$75/hr</div></div>
+    <div class="row-job" data-tags="full high verified europe"><div class="jl">🏦</div><div class="ji"><div class="jt">BI Manager</div><div class="jc">Deutsche Finance · Frankfurt, DE</div><div class="jtags"><span class="tag full">Full-time</span><span class="tag">Europe</span></div></div><div class="js">€ 95K</div></div>
+    <div class="row-job" data-tags="full africa verified"><div class="jl">📊</div><div class="ji"><div class="jt">IT Security Analyst</div><div class="jc">UBA Group · Lagos, NG</div><div class="jtags"><span class="tag full">Full-time</span><span class="tag">Africa</span></div></div><div class="js">₦ 18M/yr</div></div>
+    <div class="row-job" data-tags="remote full high verified"><div class="jl">🔒</div><div class="ji"><div class="jt">Cybersecurity Consultant</div><div class="jc">SecureOps · London, UK</div><div class="jtags"><span class="tag remote">Remote OK</span><span class="tag full">Full-time</span></div></div><div class="js">£ 80–95K</div></div>
+    <div class="row-job" data-tags="full africa"><div class="jl">📱</div><div class="ji"><div class="jt">Product Data Manager</div><div class="jc">Safaricom · Nairobi, KE</div><div class="jtags"><span class="tag full">Full-time</span><span class="tag">Africa</span></div></div><div class="js">KES 280K/mo</div></div>
+    <div class="row-job" data-tags="remote contract"><div class="jl">🚀</div><div class="ji"><div class="jt">Growth Analyst (Startup)</div><div class="jc">LaunchPad AI · Global</div><div class="jtags"><span class="tag remote">Remote</span><span class="tag part">Contract</span></div></div><div class="js">$70K + equity</div></div>
+  </div>
+</div>
+
+<!-- HOUSING -->
+<div id="pg-housing" class="pg">
+  <div class="ph"><div class="pt">Housing — global</div><button class="btn-g"><i class="ti ti-plus"></i>Post Listing</button></div>
+  <div class="fbar" id="housingFilters">
+    <div class="fb act" data-filter="all">All</div>
+    <div class="fb" data-filter="apartment">Apartments</div>
+    <div class="fb" data-filter="house">Houses</div>
+    <div class="fb" data-filter="room">Rooms</div>
+    <div class="fb" data-filter="africa">Africa</div>
+    <div class="fb" data-filter="europe">Europe</div>
+    <div class="fb" data-filter="americas">Americas</div>
+    <div class="fb" data-filter="verified"><i class="ti ti-shield-check" style="font-size:10px"></i>Verified only</div>
+  </div>
+  <div id="housingCount" class="rc">Showing 6 listings</div>
+  <div class="g3" id="housingList">
+    <div class="card" data-tags="apartment americas verified"><div class="ctag house">Apartment · US</div><div class="cn">2BR/2BA — Fort Worth, TX</div><div class="cm"><i class="ti ti-map-pin"></i>Fort Worth · 900 sqft</div><div class="cp">$1,850/mo</div><div class="vb"><i class="ti ti-shield-check"></i>ID verified</div></div>
+    <div class="card" data-tags="apartment europe verified"><div class="ctag house">Apartment · UK</div><div class="cn">1BR Studio — East London</div><div class="cm"><i class="ti ti-map-pin"></i>London · 480 sqft</div><div class="cp">£1,600/mo</div><div class="vb"><i class="ti ti-shield-check"></i>ID verified</div></div>
+    <div class="card" data-tags="apartment africa verified"><div class="ctag house">Apartment · NG</div><div class="cn">3BR Flat — Lekki, Lagos</div><div class="cm"><i class="ti ti-map-pin"></i>Lagos · Serviced</div><div class="cp">₦ 4.2M/yr</div><div class="vb"><i class="ti ti-shield-check"></i>ID verified</div></div>
+    <div class="card" data-tags="house americas verified"><div class="ctag house">House · CA</div><div class="cn">3BR Home — Toronto Suburbs</div><div class="cm"><i class="ti ti-map-pin"></i>Mississauga · 1,600 sqft</div><div class="cp">CA$3,100/mo</div><div class="vb"><i class="ti ti-shield-check"></i>ID verified</div></div>
+    <div class="card" data-tags="room africa"><div class="ctag house">Room · GH</div><div class="cn">Self-contained Room — Accra</div><div class="cm"><i class="ti ti-map-pin"></i>Accra · Airport Hills</div><div class="cp">GH₵ 1,800/mo</div></div>
+    <div class="card" data-tags="apartment europe"><div class="ctag house">Apartment · DE</div><div class="cn">2-Zimmer Wohnung — Berlin</div><div class="cm"><i class="ti ti-map-pin"></i>Berlin Mitte · 65 sqm</div><div class="cp">€ 1,450/mo</div></div>
+  </div>
+</div>
+
+<!-- FOR SALE -->
+<div id="pg-forsale" class="pg">
+  <div class="ph"><div class="pt">For Sale — global</div><button class="btn-g"><i class="ti ti-plus"></i>Sell Something</button></div>
+  <div class="fbar" id="forsaleFilters">
+    <div class="fb act" data-filter="all">All</div>
+    <div class="fb" data-filter="electronics">Electronics</div>
+    <div class="fb" data-filter="furniture">Furniture</div>
+    <div class="fb" data-filter="africa">Africa</div>
+    <div class="fb" data-filter="europe">Europe</div>
+    <div class="fb" data-filter="americas">Americas</div>
+    <div class="fb" data-filter="free">Free items</div>
+    <div class="fb" data-filter="verified"><i class="ti ti-shield-check" style="font-size:10px"></i>Verified sellers</div>
+  </div>
+  <div id="forsaleCount" class="rc">Showing 6 items</div>
+  <div class="g3" id="forsaleList">
+    <div class="card" data-tags="electronics americas verified"><div class="ctag sale">Electronics · US</div><div class="cn">MacBook Pro M3 — Like New</div><div class="cm"><i class="ti ti-map-pin"></i>Arlington, TX · 1h ago</div><div class="cp">$1,200</div><div class="rb"><i class="ti ti-star"></i>4.9 seller</div></div>
+    <div class="card" data-tags="electronics africa verified"><div class="ctag sale">Electronics · NG</div><div class="cn">Samsung Galaxy S24 — Sealed</div><div class="cm"><i class="ti ti-map-pin"></i>Lagos · 2h ago</div><div class="cp">₦ 620,000</div><div class="vb"><i class="ti ti-shield-check"></i>ID verified</div></div>
+    <div class="card" data-tags="electronics europe"><div class="ctag sale">Electronics · DE</div><div class="cn">Lenovo ThinkPad X1 Carbon</div><div class="cm"><i class="ti ti-map-pin"></i>Munich · 3h ago</div><div class="cp">€ 850</div></div>
+    <div class="card" data-tags="furniture americas"><div class="ctag sale">Furniture · US</div><div class="cn">L-Shaped Standing Desk</div><div class="cm"><i class="ti ti-map-pin"></i>Fort Worth · 3h ago</div><div class="cp">$350</div></div>
+    <div class="card" data-tags="electronics africa"><div class="ctag sale">Electronics · GH</div><div class="cn">HP Laptop + Bag — Good Cond.</div><div class="cm"><i class="ti ti-map-pin"></i>Accra · 5h ago</div><div class="cp">GH₵ 4,200</div></div>
+    <div class="card" data-tags="free americas"><div class="ctag sale">FREE · US</div><div class="cn">Moving Boxes — 25 Large</div><div class="cm"><i class="ti ti-map-pin"></i>Denton, TX · Today</div><div class="cp">Free — pickup only</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="pg-services" class="pg">
+  <div class="ph"><div class="pt">Services — global</div><button class="btn-g"><i class="ti ti-plus"></i>Offer a Service</button></div>
+  <div class="fbar" id="servicesFilters">
+    <div class="fb act" data-filter="all">All</div>
+    <div class="fb" data-filter="tech">Tech</div>
+    <div class="fb" data-filter="legal">Legal</div>
+    <div class="fb" data-filter="finance">Finance</div>
+    <div class="fb" data-filter="security">Security</div>
+    <div class="fb" data-filter="ai">AI</div>
+    <div class="fb" data-filter="remote">Remote only</div>
+    <div class="fb" data-filter="verified"><i class="ti ti-star" style="font-size:10px"></i>Top rated</div>
+  </div>
+  <div id="servicesCount" class="rc">Showing 6 services</div>
+  <div class="g3" id="servicesList">
+    <div class="card" data-tags="tech ai verified remote"><div class="ctag svc">Tech · AI · Global</div><div class="cn">Power BI &amp; Dashboard Setup</div><div class="cm"><i class="ti ti-star" style="color:#D4943A"></i>4.9 · 63 reviews · Remote</div><div class="cp">From $500</div><div class="vb"><i class="ti ti-shield-check"></i>Top rated</div></div>
+    <div class="card" data-tags="security verified remote"><div class="ctag svc">Security · Global</div><div class="cn">Cybersecurity Audit — SMB</div><div class="cm"><i class="ti ti-star" style="color:#D4943A"></i>5.0 · 17 reviews · Remote</div><div class="cp">From $1,200</div><div class="vb"><i class="ti ti-shield-check"></i>Certified</div></div>
+    <div class="card" data-tags="legal verified"><div class="ctag svc">Legal · UK</div><div class="cn">International Contract Review</div><div class="cm"><i class="ti ti-star" style="color:#D4943A"></i>4.8 · 29 reviews</div><div class="cp">£150/doc</div><div class="vb"><i class="ti ti-shield-check"></i>Qualified solicitor</div></div>
+    <div class="card" data-tags="finance verified"><div class="ctag svc">Finance · NG</div><div class="cn">Business Financial Model</div><div class="cm"><i class="ti ti-star" style="color:#D4943A"></i>4.7 · 38 reviews</div><div class="cp">₦ 120,000</div><div class="vb"><i class="ti ti-shield-check"></i>CFA certified</div></div>
+    <div class="card" data-tags="ai tech remote verified"><div class="ctag svc">AI · Global</div><div class="cn">AI Automation for Business</div><div class="cm"><i class="ti ti-star" style="color:#D4943A"></i>4.9 · 33 reviews · Remote</div><div class="cp">From $750</div><div class="vb"><i class="ti ti-shield-check"></i>Top rated</div></div>
+    <div class="card" data-tags="tech verified"><div class="ctag svc">Tech · GH</div><div class="cn">Web &amp; Mobile App Development</div><div class="cm"><i class="ti ti-star" style="color:#D4943A"></i>4.6 · 52 reviews</div><div class="cp">From $800</div><div class="vb"><i class="ti ti-shield-check"></i>Verified dev</div></div>
+  </div>
+</div>
+
+<!-- AUTOS -->
+<div id="pg-autos" class="pg">
+  <div class="ph"><div class="pt">Autos — global</div><button class="btn-g"><i class="ti ti-plus"></i>List a Vehicle</button></div>
+  <div class="fbar" id="autosFilters">
+    <div class="fb act" data-filter="all">All</div>
+    <div class="fb" data-filter="car">Cars</div>
+    <div class="fb" data-filter="truck">Trucks/SUVs</div>
+    <div class="fb" data-filter="electric">Electric</div>
+    <div class="fb" data-filter="africa">Africa</div>
+    <div class="fb" data-filter="europe">Europe</div>
+    <div class="fb" data-filter="verified"><i class="ti ti-shield-check" style="font-size:10px"></i>Verified history</div>
+  </div>
+  <div id="autosCount" class="rc">Showing 6 vehicles</div>
+  <div class="g3" id="autosList">
+    <div class="card" data-tags="car verified"><div class="ctag auto">SUV · US</div><div class="cn">2021 Honda CR-V — 28K Miles</div><div class="cm"><i class="ti ti-map-pin"></i>Dallas, TX · 3h ago</div><div class="cp">$24,500</div><div class="vb"><i class="ti ti-shield-check"></i>Carfax clean</div></div>
+    <div class="card" data-tags="car europe verified"><div class="ctag auto">Sedan · DE</div><div class="cn">2020 VW Golf — 32K km</div><div class="cm"><i class="ti ti-map-pin"></i>Berlin · Today</div><div class="cp">€ 18,500</div><div class="vb"><i class="ti ti-shield-check"></i>TÜV certified</div></div>
+    <div class="card" data-tags="car africa"><div class="ctag auto">Saloon · NG</div><div class="cn">2018 Toyota Corolla — 61K km</div><div class="cm"><i class="ti ti-map-pin"></i>Lagos · 2h ago</div><div class="cp">₦ 11.5M</div></div>
+    <div class="card" data-tags="electric car verified"><div class="ctag auto">Electric · UK</div><div class="cn">2022 Tesla Model 3 Long Range</div><div class="cm"><i class="ti ti-map-pin"></i>London · 1h ago</div><div class="cp">£ 28,000</div><div class="vb"><i class="ti ti-shield-check"></i>MOT valid</div></div>
+    <div class="card" data-tags="truck africa"><div class="ctag auto">SUV · GH</div><div class="cn">2017 Toyota Land Cruiser</div><div class="cm"><i class="ti ti-map-pin"></i>Accra · 4h ago</div><div class="cp">GH₵ 220,000</div></div>
+    <div class="card" data-tags="car europe"><div class="ctag auto">Hatchback · FR</div><div class="cn">2019 Peugeot 208 — 45K km</div><div class="cm"><i class="ti ti-map-pin"></i>Paris · Yesterday</div><div class="cp">€ 12,900</div></div>
+  </div>
+</div>
+
+<!-- COMMUNITY -->
+<div id="pg-community" class="pg">
+  <div class="ph"><div class="pt">Community — global</div><button class="btn-g"><i class="ti ti-plus"></i>Post</button></div>
+  <div class="fbar" id="communityFilters">
+    <div class="fb act" data-filter="all">All</div>
+    <div class="fb" data-filter="event">Events</div>
+    <div class="fb" data-filter="group">Groups</div>
+    <div class="fb" data-filter="gig">Gigs</div>
+    <div class="fb" data-filter="volunteer">Volunteer</div>
+    <div class="fb" data-filter="lost">Lost &amp; Found</div>
+  </div>
+  <div id="communityCount" class="rc">Showing 6 posts</div>
+  <div class="g3" id="communityList">
+    <div class="card" data-tags="event"><div class="ctag ev">Event · US</div><div class="cn">DFW AI Tools Workshop</div><div class="cm"><i class="ti ti-calendar"></i>July 22 · Online · Global</div><div class="cp">$49 · 74 going</div></div>
+    <div class="card" data-tags="group"><div class="ctag comm">Group · NG</div><div class="cn">Lagos Tech Founders Circle</div><div class="cm"><i class="ti ti-users"></i>1,200 members</div><div class="cp">Open group</div></div>
+    <div class="card" data-tags="event"><div class="ctag ev">Event · GH</div><div class="cn">Accra Business Meetup — July</div><div class="cm"><i class="ti ti-calendar"></i>July 18 · Accra</div><div class="cp">Free · 88 going</div></div>
+    <div class="card" data-tags="gig"><div class="ctag ev">Gig · UK</div><div class="cn">Videographer Needed — 2 Days</div><div class="cm"><i class="ti ti-map-pin"></i>London · Aug 5</div><div class="cp">£600 flat</div></div>
+    <div class="card" data-tags="volunteer"><div class="ctag comm">Volunteer · KE</div><div class="cn">Digital Literacy Teaching — Nairobi</div><div class="cm"><i class="ti ti-calendar"></i>Saturdays · Nairobi</div><div class="cp">Free · 24 volunteers</div></div>
+    <div class="card" data-tags="lost"><div class="ctag comm">Lost &amp; Found · DE</div><div class="cn">Found: Golden Retriever — Berlin</div><div class="cm"><i class="ti ti-map-pin"></i>Berlin Mitte · Today</div><div class="cp">Contact to claim</div></div>
+  </div>
+</div>
+
+<!-- TRENDING -->
+<div id="pg-trending" class="pg">
+  <div class="ph"><div class="pt">Trending now</div><div style="font-size:10px;color:var(--text3)">Updated hourly · DFW &amp; global</div></div>
+  <div class="g2">
+    <div class="chart-box"><div class="chart-title">Top searched today</div>
+      <div class="bar-row"><div class="bar-label">Jobs</div><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><div class="bar-val">4,201</div></div>
+      <div class="bar-row"><div class="bar-label">Housing</div><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div><div class="bar-val">3,440</div></div>
+      <div class="bar-row"><div class="bar-label">Services</div><div class="bar-track"><div class="bar-fill" style="width:58%"></div></div><div class="bar-val">2,780</div></div>
+      <div class="bar-row"><div class="bar-label">For Sale</div><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><div class="bar-val">2,390</div></div>
+      <div class="bar-row"><div class="bar-label">Autos</div><div class="bar-track"><div class="bar-fill" style="width:39%"></div></div><div class="bar-val">1,860</div></div>
+    </div>
+    <div class="chart-box"><div class="chart-title">Trending search terms</div>
+      <div class="trend-item"><div class="trend-rank">1</div><div class="trend-info"><div class="trend-t">Remote data analyst jobs</div><div class="trend-s">Jobs · 1,240 searches</div></div><div class="trend-delta">+34%</div></div>
+      <div class="trend-item"><div class="trend-rank">2</div><div class="trend-info"><div class="trend-t">1BR apartments Fort Worth</div><div class="trend-s">Housing · 980 searches</div></div><div class="trend-delta">+21%</div></div>
+      <div class="trend-item"><div class="trend-rank">3</div><div class="trend-info"><div class="trend-t">AI automation services</div><div class="trend-s">Services · 870 searches</div></div><div class="trend-delta">+58%</div></div>
+      <div class="trend-item"><div class="trend-rank">4</div><div class="trend-info"><div class="trend-t">Used trucks under $20K</div><div class="trend-s">Autos · 720 searches</div></div><div class="trend-delta">+12%</div></div>
+      <div class="trend-item"><div class="trend-rank">5</div><div class="trend-info"><div class="trend-t">MacBook Pro for sale</div><div class="trend-s">For Sale · 610 searches</div></div><div class="trend-delta">+19%</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- REGIONS -->
+<div id="pg-regions" class="pg">
+  <div class="ph"><div class="pt">Regions &amp; markets</div><button class="btn-g"><i class="ti ti-plus"></i>Launch New Region</button></div>
+  <div class="alert alert-info"><i class="ti ti-info-circle"></i>Each region operates under its own compliance rules, currency, and content policies. Click any country to switch your active locale.</div>
+  <div class="sec-title">Live markets — click to switch region</div>
+  <div class="country-grid">
+    <div class="country-card sel" onclick="switchLocale('US · USD · EN',this)"><div class="cf">🇺🇸</div><div class="cn2">United States</div><div class="cs cs-live">Live · 38K users</div></div>
+    <div class="country-card" onclick="switchLocale('NG · NGN · EN',this)"><div class="cf">🇳🇬</div><div class="cn2">Nigeria</div><div class="cs cs-live">Live · 12K users</div></div>
+    <div class="country-card" onclick="switchLocale('UK · GBP · EN',this)"><div class="cf">🇬🇧</div><div class="cn2">United Kingdom</div><div class="cs cs-live">Live · 9K users</div></div>
+    <div class="country-card" onclick="switchLocale('CA · CAD · EN/FR',this)"><div class="cf">🇨🇦</div><div class="cn2">Canada</div><div class="cs cs-live">Live · 7K users</div></div>
+    <div class="country-card" onclick="switchLocale('GH · GHS · EN',this)"><div class="cf">🇬🇭</div><div class="cn2">Ghana</div><div class="cs cs-live">Live · 4K users</div></div>
+    <div class="country-card" onclick="switchLocale('DE · EUR · DE',this)"><div class="cf">🇩🇪</div><div class="cn2">Germany</div><div class="cs cs-live">Live · 6K users</div></div>
+    <div class="country-card" onclick="switchLocale('AU · AUD · EN',this)"><div class="cf">🇦🇺</div><div class="cn2">Australia</div><div class="cs cs-live">Live · 5K users</div></div>
+    <div class="country-card" onclick="switchLocale('ZA · ZAR · EN',this)"><div class="cf">🇿🇦</div><div class="cn2">South Africa</div><div class="cs cs-live">Live · 3K users</div></div>
+    <div class="country-card" onclick="switchLocale('KE · KES · EN/SW',this)"><div class="cf">🇰🇪</div><div class="cn2">Kenya</div><div class="cs cs-live">Live · 5K users</div></div>
+    <div class="country-card" onclick="switchLocale('IN · INR · EN/HI',this)"><div class="cf">🇮🇳</div><div class="cn2">India</div><div class="cs cs-live">Live · 18K users</div></div>
+    <div class="country-card" onclick="switchLocale('BR · BRL · PT',this)"><div class="cf">🇧🇷</div><div class="cn2">Brazil</div><div class="cs cs-live">Live · 8K users</div></div>
+    <div class="country-card" onclick="switchLocale('AE · AED · AR/EN',this)"><div class="cf">🇦🇪</div><div class="cn2">UAE</div><div class="cs cs-live">Live · 6K users</div></div>
+  </div>
+  <div class="sec-title">Regional compliance snapshot</div>
+  <div class="g2">
+    <div class="comp-card"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:9px">🇺🇸 United States — CCPA · FTC · FINRA</div><div class="cc-row"><span>Data law</span><span>CCPA / COPPA</span></div><div class="cc-row"><span>Payment</span><span>Stripe · PayPal</span></div><div class="cc-row"><span>Age minimum</span><span>18 years</span></div><div class="cc-row"><span>KYC required</span><span>Yes — ID + SSN last 4</span></div></div>
+    <div class="comp-card"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:9px">🇪🇺 European Union — GDPR · DSA · PSD2</div><div class="cc-row"><span>Data law</span><span>GDPR (strict)</span></div><div class="cc-row"><span>Payment</span><span>Stripe · SEPA</span></div><div class="cc-row"><span>Age minimum</span><span>16–18 (varies)</span></div><div class="cc-row"><span>KYC required</span><span>Yes — AML / PSD2</span></div></div>
+    <div class="comp-card"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:9px">🇳🇬 Nigeria — NDPR · CBN · SEC</div><div class="cc-row"><span>Data law</span><span>NDPR 2019</span></div><div class="cc-row"><span>Payment</span><span>Paystack · Flutterwave</span></div><div class="cc-row"><span>Age minimum</span><span>18 years</span></div><div class="cc-row"><span>KYC required</span><span>Yes — NIN / BVN</span></div></div>
+    <div class="comp-card"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:9px">🇬🇧 United Kingdom — UK GDPR · FCA · OSA</div><div class="cc-row"><span>Data law</span><span>UK GDPR / DPA 2018</span></div><div class="cc-row"><span>Payment</span><span>Stripe · Open Banking</span></div><div class="cc-row"><span>Age minimum</span><span>18 years</span></div><div class="cc-row"><span>KYC required</span><span>Yes — Passport / DL</span></div></div>
+  </div>
+</div>
+
+<!-- CURRENCY -->
+<div id="pg-currency" class="pg">
+  <div class="ph"><div class="pt">Currency &amp; payments</div></div>
+  <div class="alert alert-info"><i class="ti ti-info-circle"></i>All prices display in the buyer's local currency using live FX rates updated every 15 minutes. Vibel Pay handles cross-border conversion at 1.5% margin.</div>
+  <div class="g2">
+    <div class="chart-box"><div class="chart-title">Payment providers by region</div>
+      <div class="bar-row"><div class="bar-label">US / Canada</div><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><div class="bar-val">Stripe</div></div>
+      <div class="bar-row"><div class="bar-label">Europe</div><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><div class="bar-val">Stripe/SEPA</div></div>
+      <div class="bar-row"><div class="bar-label">Nigeria</div><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><div class="bar-val">Paystack</div></div>
+      <div class="bar-row"><div class="bar-label">Kenya</div><div class="bar-track"><div class="bar-fill" style="width:85%"></div></div><div class="bar-val">M-Pesa</div></div>
+      <div class="bar-row"><div class="bar-label">South Asia</div><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div><div class="bar-val">Razorpay</div></div>
+      <div class="bar-row"><div class="bar-label">MENA</div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div class="bar-val">Tap / Telr</div></div>
+      <div class="bar-row"><div class="bar-label">Latam</div><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div><div class="bar-val">Mercado Pago</div></div>
+    </div>
+    <div class="chart-box"><div class="chart-title">Supported currencies — 38 live</div>
+      <div class="cur-row"><span>USD — US Dollar</span><span>Primary</span></div>
+      <div class="cur-row"><span>EUR — Euro</span><span>Live</span></div>
+      <div class="cur-row"><span>GBP — British Pound</span><span>Live</span></div>
+      <div class="cur-row"><span>NGN — Nigerian Naira</span><span>Live</span></div>
+      <div class="cur-row"><span>GHS — Ghanaian Cedi</span><span>Live</span></div>
+      <div class="cur-row"><span>KES — Kenyan Shilling</span><span>Live</span></div>
+      <div class="cur-row"><span>ZAR — South African Rand</span><span>Live</span></div>
+      <div class="cur-row"><span>INR — Indian Rupee</span><span>Live</span></div>
+      <div class="cur-row"><span>AED — UAE Dirham</span><span>Live</span></div>
+      <div class="cur-row"><span>BRL — Brazilian Real</span><span>Live</span></div>
+      <div class="cur-row"><span>CAD — Canadian Dollar</span><span>Live</span></div>
+      <div class="cur-row"><span>AUD — Australian Dollar</span><span>Live</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLIANCE -->
+<div id="pg-compliance" class="pg">
+  <div class="ph"><div class="pt">Compliance center</div><div class="vb" style="font-size:10px;padding:4px 10px"><i class="ti ti-shield-check"></i>All systems compliant</div></div>
+  <div class="alert alert-success"><i class="ti ti-check"></i>Vibel maintains active compliance with GDPR, CCPA, NDPR, UK GDPR, PDPA, LGPD, and 11 other regional data protection frameworks. Last audit: June 1, 2026.</div>
+  <div class="g2">
+    <div class="comp-card"><div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:9px">Data protection frameworks</div>
+      <div class="cc-row"><span>GDPR (EU/EEA)</span><span>Compliant</span></div>
+      <div class="cc-row"><span>UK GDPR</span><span>Compliant</span></div>
+      <div class="cc-row"><span>CCPA (California)</span><span>Compliant</span></div>
+      <div class="cc-row"><span>NDPR (Nigeria)</span><span>Compliant</span></div>
+      <div class="cc-row"><span>LGPD (Brazil)</span><span>Compliant</span></div>
+      <div class="cc-row"><span>PDPA (Thailand/Singapore)</span><span>Compliant</span></div>
+      <div class="cc-row"><span>POPIA (South Africa)</span><span>Compliant</span></div>
+      <div class="cc-row"><span>COPPA (Under-13 US)</span><span>Enforced</span></div>
+    </div>
+    <div class="comp-card"><div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:9px">Financial &amp; AML compliance</div>
+      <div class="cc-row"><span>AML screening</span><span>Active</span></div>
+      <div class="cc-row"><span>OFAC sanctions list</span><span>Checked daily</span></div>
+      <div class="cc-row"><span>PCI-DSS payments</span><span>Level 1 certified</span></div>
+      <div class="cc-row"><span>KYC — Tier 1 (browse)</span><span>Email verified</span></div>
+      <div class="cc-row"><span>KYC — Tier 2 (post)</span><span>Phone + Govt ID</span></div>
+      <div class="cc-row"><span>KYC — Tier 3 (payments)</span><span>Full ID + bank</span></div>
+      <div class="cc-row"><span>FATF recommendations</span><span>Implemented</span></div>
+      <div class="cc-row"><span>EU Digital Services Act</span><span>Compliant</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- POLICIES -->
+<div id="pg-policies" class="pg">
+  <div class="ph"><div class="pt">Platform policies</div><div style="font-size:10px;color:var(--text3)">Effective June 1, 2026 · v4.2</div></div>
+  <div class="sec-title">1. User eligibility &amp; registration</div>
+  <div class="rule-item"><div class="rule-num">1.1</div><div><div class="rule-t">Minimum age</div><div class="rule-d">You must be 18 years or older to register. In jurisdictions where the legal age of majority is higher, that age applies. Accounts found to be operated by minors will be permanently suspended.</div></div></div>
+  <div class="rule-item"><div class="rule-num">1.2</div><div><div class="rule-t">One account per person</div><div class="rule-d">Each individual may hold one personal account. Duplicate accounts are subject to permanent ban without appeal.</div></div></div>
+  <div class="rule-item"><div class="rule-num">1.3</div><div><div class="rule-t">Real identity required</div><div class="rule-d">All users must provide their real legal name. Business names require a verified legal entity underneath.</div></div></div>
+  <div class="rule-item"><div class="rule-num">1.4</div><div><div class="rule-t">Geo-restrictions</div><div class="rule-d">Vibel does not operate in OFAC-sanctioned countries. Users attempting to circumvent geo-restrictions via VPN will be permanently banned.</div></div></div>
+  <div class="sec-title" style="margin-top:20px">2. Listing rules</div>
+  <div class="rule-item"><div class="rule-num">2.1</div><div><div class="rule-t">Accuracy required</div><div class="rule-d">Listings must accurately describe the item, service, or opportunity. Misrepresentation is grounds for permanent ban and potential legal referral.</div></div></div>
+  <div class="rule-item"><div class="rule-num">2.2</div><div><div class="rule-t">Photos must be original</div><div class="rule-d">Listing photos must represent the actual item. AI-generated images are prohibited in listings. Stock images permitted for brand-new sealed goods only.</div></div></div>
+  <div class="rule-item"><div class="rule-num">2.3</div><div><div class="rule-t">Pricing transparency</div><div class="rule-d">All prices must be stated clearly. Hidden fees, bait-and-switch pricing, and post-contact price changes are prohibited.</div></div></div>
+  <div class="sec-title" style="margin-top:20px">3. Enforcement consequences</div>
+  <div class="rule-item"><div class="rule-num">3.1</div><div><div class="rule-t">Warning</div><div class="rule-d">Minor first violations receive a formal warning with a 48-hour cure period. Evidence retained permanently.</div></div></div>
+  <div class="rule-item"><div class="rule-num">3.2</div><div><div class="rule-t">Temporary suspension</div><div class="rule-d">Moderate violations result in 7–30 day suspension. Active listings paused. Funds in Vibel Pay held pending review.</div></div></div>
+  <div class="rule-item"><div class="rule-num">3.3</div><div><div class="rule-t">Permanent ban</div><div class="rule-d">Severe violations result in permanent termination. Device fingerprint, IP, and verified ID flagged to prevent re-registration.</div></div></div>
+  <div class="rule-item"><div class="rule-num">3.4</div><div><div class="rule-t">Law enforcement cooperation</div><div class="rule-d">Vibel will comply with valid legal orders from any jurisdiction where we operate. Evidence packages delivered within 72 hours of a valid court order.</div></div></div>
+</div>
+
+<!-- BANNED ITEMS -->
+<div id="pg-banned" class="pg">
+  <div class="ph"><div class="pt">Prohibited items &amp; content</div><div style="font-size:10px;color:var(--red);display:flex;align-items:center;gap:4px"><i class="ti ti-ban" style="font-size:12px"></i>Zero tolerance</div></div>
+  <div class="alert alert-danger"><i class="ti ti-alert-triangle"></i>Posting any prohibited item results in immediate removal, account suspension, and potential law enforcement referral. No warnings issued for items on this list.</div>
+  <div class="banned-grid">
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-shield-x"></i></div><div><div class="bi-t">Weapons &amp; firearms</div><div class="bi-d">Guns, ammunition, explosives, illegal modifications</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-pill"></i></div><div><div class="bi-t">Illegal drugs &amp; substances</div><div class="bi-d">Narcotics, controlled substances, drug paraphernalia</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-user-x"></i></div><div><div class="bi-t">Human trafficking</div><div class="bi-d">Any listing facilitating trafficking or forced labor</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-eye-off"></i></div><div><div class="bi-t">CSAM &amp; minor exploitation</div><div class="bi-d">Mandatory NCMEC report. Law enforcement notified immediately</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-copy"></i></div><div><div class="bi-t">Counterfeit &amp; stolen goods</div><div class="bi-d">Fake designer goods, pirated media, stolen property</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-currency-bitcoin"></i></div><div><div class="bi-t">Financial fraud instruments</div><div class="bi-d">Fake banknotes, cloned cards, phishing kits</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-paw"></i></div><div><div class="bi-t">Protected wildlife</div><div class="bi-d">CITES-listed species, ivory, endangered animal products</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-spy"></i></div><div><div class="bi-t">Surveillance &amp; stalkerware</div><div class="bi-d">Covert trackers, spyware, hidden cameras, doxxing services</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-radioactive"></i></div><div><div class="bi-t">Hazardous materials</div><div class="bi-d">Asbestos, unregulated chemicals, biological hazards</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-ban"></i></div><div><div class="bi-t">Hate speech &amp; incitement</div><div class="bi-d">Content promoting hate on race, religion, gender, nationality</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-world-off"></i></div><div><div class="bi-t">Sanctions-violating trade</div><div class="bi-d">Goods violating OFAC, UN, EU, or UK sanctions lists</div></div></div>
+    <div class="banned-item"><div class="bi-icon"><i class="ti ti-robot-off"></i></div><div><div class="bi-t">Scam infrastructure</div><div class="bi-d">Bot accounts, fake review networks, credential stuffing kits</div></div></div>
+  </div>
+</div>
+
+<!-- TRUST & SAFETY -->
+<div id="pg-trust" class="pg">
+  <div class="ph"><div class="pt">Trust &amp; safety</div></div>
+  <div class="stats">
+    <div class="sc"><div class="sl">Scams blocked</div><div class="sv">12K</div><div class="sd">this month</div></div>
+    <div class="sc"><div class="sl">Listings pre-screened</div><div class="sv">98%</div><div class="sd">AI moderation</div></div>
+    <div class="sc"><div class="sl">Avg takedown</div><div class="sv">4.2h</div><div class="sd">reported content</div></div>
+    <div class="sc"><div class="sl">Verified sellers</div><div class="sv">94%</div><div class="sd">global KYC</div></div>
+  </div>
+  <div class="trust-row"><div class="tr-icon" style="background:#0A2218;color:var(--green)"><i class="ti ti-id-badge"></i></div><div><div class="tr-t">3-tier KYC identity verification</div><div class="tr-d">Tier 1 (email/phone) to browse. Tier 2 (govt ID + selfie) to post. Tier 3 (ID + bank) to receive payments. Persona.com covers 195 countries.</div></div></div>
+  <div class="trust-row"><div class="tr-icon" style="background:#0A1628;color:#7BB3F0"><i class="ti ti-robot"></i></div><div><div class="tr-t">AI content moderation — pre &amp; post publish</div><div class="tr-d">Every listing, photo, and message scanned before going live. AWS Rekognition for images. OpenAI Moderation API for text. 12 languages supported.</div></div></div>
+  <div class="trust-row"><div class="tr-icon" style="background:#1A1000;color:var(--amber)"><i class="ti ti-lock"></i></div><div><div class="tr-t">Vibel Pay — regional escrow</div><div class="tr-d">Funds held in escrow per jurisdiction. US: Stripe. EU: SEPA. Nigeria: Paystack. Kenya: M-Pesa. Funds released only when both parties confirm.</div></div></div>
+  <div class="trust-row"><div class="tr-icon" style="background:#1E0A0A;color:#F08080"><i class="ti ti-map-pin"></i></div><div><div class="tr-t">Global safe exchange network</div><div class="tr-d">1,200+ verified safe exchange points across 47 countries — police stations, bank lobbies, and Vibel-partner co-working spaces.</div></div></div>
+  <div class="trust-row"><div class="tr-icon" style="background:#0A2218;color:var(--green)"><i class="ti ti-fingerprint"></i></div><div><div class="tr-t">Device fingerprinting — ban evasion prevention</div><div class="tr-d">Permanently banned users are fingerprinted by device, IP, and verified ID. Re-registration attempts flagged automatically via FingerprintJS Pro.</div></div></div>
+  <div class="trust-row"><div class="tr-icon" style="background:#1A0A1E;color:var(--purple)"><i class="ti ti-clock"></i></div><div><div class="tr-t">Fraud response SLAs</div><div class="tr-d">Scam reports: 2hr response. Account compromise: 30min lockdown. Law enforcement: 72hr evidence package. CSAM: immediate takedown + NCMEC report within 1hr.</div></div></div>
+</div>
+
+<!-- MESSAGES -->
+<div id="pg-messages" class="pg">
+  <div class="ph"><div class="pt">Messages</div><div style="font-size:10px;color:var(--text3)">3 unread</div></div>
+  <div class="msg-wrap">
+    <div class="msg-list">
+      <div class="msg-item on"><div style="display:flex;justify-content:space-between"><div class="mi-name">Sarah K. 🇺🇸</div><div class="mi-time">2m</div></div><div class="mi-prev">Is the MacBook still available?</div></div>
+      <div class="msg-item"><div style="display:flex;justify-content:space-between"><div class="mi-name">Chidi O. 🇳🇬</div><div class="mi-time">1h</div></div><div class="mi-prev">Interested in your BI service</div></div>
+      <div class="msg-item"><div style="display:flex;justify-content:space-between"><div class="mi-name">Emma W. 🇬🇧</div><div class="mi-time">3h</div></div><div class="mi-prev">Can you do a London project?</div></div>
+      <div class="msg-item"><div style="display:flex;justify-content:space-between"><div class="mi-name">Kwame A. 🇬🇭</div><div class="mi-time">1d</div></div><div class="mi-prev">Invoice sent for the audit</div></div>
+    </div>
+    <div class="msg-chat">
+      <div class="mc-head"><div><div class="mc-title">Sarah K. — United States</div><div class="mc-sub">Re: MacBook Pro M3 listing · Verified buyer · Vibel Pay enabled</div></div></div>
+      <div class="mc-msgs" id="mcMsgs">
+        <div class="bub them">Hi! Is the MacBook still available?</div>
+        <div class="bub me">Yes it is! Still in great condition.</div>
+        <div class="bub them">What's the lowest you'd go? Can I pick up this weekend?</div>
+        <div class="bub me">I can do $1,150 — Saturday works. Arlington area.</div>
+        <div class="bub them">Perfect. I'll use Vibel Pay escrow to be safe.</div>
+        <div class="bub me">Great call. I'll send you the Vibel Pay link now.</div>
+      </div>
+      <div class="mc-inp"><input class="mc-input" id="mcInp" type="text" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendMc()"><button class="mc-send" onclick="sendMc()" aria-label="Send"><i class="ti ti-send"></i></button></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="pg-profile" class="pg">
+  <div class="ph"><div class="pt">My profile</div><button class="btn-g"><i class="ti ti-edit"></i>Edit Profile</button></div>
+  <div class="profile-wrap">
+    <div>
+      <div class="profile-card">
+        <div class="pav">MM</div>
+        <div class="pname">Mitti Mabena</div>
+        <div class="prole">Data Analyst · Cloudview Analytics LLC</div>
+        <div class="pstars">★★★★★</div>
+        <div class="pstat">4.9 · 41 reviews · 8 countries</div>
+        <div class="pdiv"></div>
+        <div class="prow"><span>Active listings</span><span>12</span></div>
+        <div class="prow"><span>Global sales</span><span>38</span></div>
+        <div class="prow"><span>Response rate</span><span>97%</span></div>
+        <div class="prow"><span>Avg response</span><span>42 min</span></div>
+        <div class="prow"><span>Active markets</span><span>US · NG · GH · UK</span></div>
+        <div class="pdiv"></div>
+        <div class="vb" style="justify-content:center;font-size:9px"><i class="ti ti-shield-check"></i>KYC Tier 3 verified</div>
+        <div class="rb" style="justify-content:center;margin:4px 0 0;font-size:9px"><i class="ti ti-star"></i>Top Seller</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.7;margin-bottom:14px">Data Analyst helping businesses globally turn raw data into clear decisions. Power BI, Tableau, AI-assisted analytics. Based in Fort Worth, TX. Serving clients across US, Nigeria, Ghana, and UK.</div>
+      <div class="g2">
+        <div class="card"><div class="ctag svc">Analytics · Global</div><div class="cn">Business Dashboard Setup</div><div class="cp">From $500</div></div>
+        <div class="card"><div class="ctag svc">Security · Global</div><div class="cn">Data Infrastructure Audit</div><div class="cp">From $1,200</div></div>
+        <div class="card"><div class="ctag svc">AI · Global</div><div class="cn">AI Automation Consulting</div><div class="cp">$750/session</div></div>
+        <div class="card"><div class="ctag svc">Training · Remote</div><div class="cn">Power BI Training — 1:1</div><div class="cp">$150/hr</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MY LISTINGS -->
+<div id="pg-mylistings" class="pg">
+  <div class="ph"><div class="pt">My listings</div><button class="btn-g"><i class="ti ti-plus"></i>New Listing</button></div>
+  <div class="fbar" id="mylistingsFilters">
+    <div class="fb act" data-filter="all">All (12)</div>
+    <div class="fb" data-filter="active">Active (9)</div>
+    <div class="fb" data-filter="pending">Pending (2)</div>
+    <div class="fb" data-filter="sold">Sold/Closed (1)</div>
+  </div>
+  <div id="mylistingsCount" class="rc">Showing 6 listings</div>
+  <div class="g3" id="mylistingsList">
+    <div class="card" data-tags="active"><div class="ctag svc">Active</div><div class="cn">Business Dashboard Setup</div><div class="cm"><i class="ti ti-eye"></i>142 views · 8 inquiries</div><div class="cp">From $500</div></div>
+    <div class="card" data-tags="active"><div class="ctag svc">Active</div><div class="cn">Data Infrastructure Audit</div><div class="cm"><i class="ti ti-eye"></i>89 views · 4 inquiries</div><div class="cp">From $1,200</div></div>
+    <div class="card" data-tags="active"><div class="ctag svc">Active</div><div class="cn">AI Automation Consulting</div><div class="cm"><i class="ti ti-eye"></i>211 views · 12 inquiries</div><div class="cp">$750/session</div></div>
+    <div class="card" data-tags="pending"><div class="ctag ev">Pending review</div><div class="cn">AI Tools Workshop — July 22</div><div class="cm"><i class="ti ti-users"></i>74 signed up</div><div class="cp">$49</div></div>
+    <div class="card" data-tags="sold"><div class="ctag comm" style="color:var(--text3)">Sold</div><div class="cn">MacBook Pro M3 — 14"</div><div class="cm"><i class="ti ti-check"></i>Sold via Vibel Pay · June 1</div><div class="cp">$1,150 received</div></div>
+    <div class="card" data-tags="active"><div class="ctag svc">Active</div><div class="cn">Power BI Training — 1:1</div><div class="cm"><i class="ti ti-eye"></i>67 views · 3 inquiries</div><div class="cp">$150/hr</div></div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div id="pg-reviews" class="pg">
+  <div class="ph"><div class="pt">Reviews</div><div style="display:flex;align-items:center;gap:8px"><span style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text)">4.9</span><span style="color:var(--amber);font-size:14px">★★★★★</span><span style="font-size:10px;color:var(--text3)">41 reviews · 8 countries</span></div></div>
+  <div class="review-item"><div class="ri-head"><div class="ri-user"><div class="ri-av">JT</div><div><div class="ri-name">James T. 🇺🇸 Texas</div><div class="ri-date">June 2, 2026</div></div></div><div class="ri-stars">★★★★★</div></div><div class="ri-text">Built our analytics dashboard from scratch in under a week. Clear communication, ahead of schedule. Will hire again.</div></div>
+  <div class="review-item"><div class="ri-head"><div class="ri-user"><div class="ri-av">CO</div><div><div class="ri-name">Chidi O. 🇳🇬 Lagos</div><div class="ri-date">May 28, 2026</div></div></div><div class="ri-stars">★★★★★</div></div><div class="ri-text">Cross-border engagement — USA to Nigeria. Seamless. Vibel Pay made the payment stress-free. Power BI dashboard exceeded expectations.</div></div>
+  <div class="review-item"><div class="ri-head"><div class="ri-user"><div class="ri-av">KA</div><div><div class="ri-name">Kwame A. 🇬🇭 Accra</div><div class="ri-date">May 15, 2026</div></div></div><div class="ri-stars">★★★★☆</div></div><div class="ri-text">Security audit for our Accra office. Very thorough. Minor delay on report but great value for the quality of work.</div></div>
+  <div class="review-item"><div class="ri-head"><div class="ri-user"><div class="ri-av">EW</div><div><div class="ri-name">Emma W. 🇬🇧 London</div><div class="ri-date">May 10, 2026</div></div></div><div class="ri-stars">★★★★★</div></div><div class="ri-text">Excellent BI consultant. Delivered a Tableau dashboard for our London team. Cross-timezone communication was flawless.</div></div>
+</div>
+
+<!-- DISPUTES -->
+<div id="pg-disputes" class="pg">
+  <div class="ph"><div class="pt">Dispute center — global</div><button class="btn-o"><i class="ti ti-plus"></i>File dispute</button></div>
+  <div class="alert alert-info"><i class="ti ti-scale"></i>Vibel's international dispute team operates across 6 time zones, 24/7. Cross-border disputes escalated to our Global Mediation Panel within 4 hours.</div>
+  <div class="dispute-item"><div class="di-s di-o">Open</div><div class="di-info"><div class="di-t">Item not as described — Sony headphones · US</div><div class="di-d">Filed June 3 · Case #VB-2041 · Waiting on seller response</div></div><button class="btn-o" style="font-size:10px">View</button></div>
+  <div class="dispute-item"><div class="di-s di-v">In Review</div><div class="di-info"><div class="di-t">Service not delivered — Web design · Cross-border UK/NG</div><div class="di-d">Filed May 29 · Global Mediation Panel assigned · Case #VB-1987</div></div><button class="btn-o" style="font-size:10px">View</button></div>
+  <div class="dispute-item"><div class="di-s di-r">Resolved</div><div class="di-info"><div class="di-t">Partial refund — Laptop condition · GH</div><div class="di-d">Resolved May 20 · GH₵ 400 refund issued via Vibel Pay · Case #VB-1834</div></div><button class="btn-o" style="font-size:10px">View</button></div>
+</div>
+
+<!-- ANALYTICS -->
+<div id="pg-analytics" class="pg">
+  <div class="ph"><div class="pt">Analytics — global view</div><div style="font-size:10px;color:var(--text3)">Last 30 days</div></div>
+  <div class="stats">
+    <div class="sc"><div class="sl">Global reach</div><div class="sv">47 countries</div><div class="sd">profile viewed</div></div>
+    <div class="sc"><div class="sl">Total revenue</div><div class="sv">$14,200</div><div class="sd">+28% vs last mo</div></div>
+    <div class="sc"><div class="sl">Intl inquiries</div><div class="sv">19/27</div><div class="sd">70% cross-border</div></div>
+    <div class="sc"><div class="sl">Top market</div><div class="sv">Nigeria</div><div class="sd">38% of inbound</div></div>
+  </div>
+  <div class="g2">
+    <div class="chart-box"><div class="chart-title">Inquiries by country</div>
+      <div class="bar-row"><div class="bar-label">Nigeria</div><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><div class="bar-val">11</div></div>
+      <div class="bar-row"><div class="bar-label">United States</div><div class="bar-track"><div class="bar-fill" style="width:65%"></div></div><div class="bar-val">8</div></div>
+      <div class="bar-row"><div class="bar-label">Ghana</div><div class="bar-track"><div class="bar-fill" style="width:40%"></div></div><div class="bar-val">5</div></div>
+      <div class="bar-row"><div class="bar-label">UK</div><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div><div class="bar-val">3</div></div>
+    </div>
+    <div class="chart-box"><div class="chart-title">Revenue by currency</div>
+      <div class="bar-row"><div class="bar-label">USD</div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><div class="bar-val">$8,400</div></div>
+      <div class="bar-row"><div class="bar-label">NGN</div><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><div class="bar-val">$3,200</div></div>
+      <div class="bar-row"><div class="bar-label">GHS</div><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div><div class="bar-val">$1,600</div></div>
+      <div class="bar-row"><div class="bar-label">GBP</div><div class="bar-track"><div class="bar-fill" style="width:12%"></div></div><div class="bar-val">$1,000</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div id="pg-pricing" class="pg">
+  <div class="ph"><div class="pt">Pricing plans</div></div>
+  <div class="alert alert-info"><i class="ti ti-info-circle"></i>Pricing is purchasing-power-adjusted by region. A Pro plan in Nigeria costs less than in the US to ensure equal global access.</div>
+  <div class="plan-grid">
+    <div class="plan-card"><div class="plan-name">Free</div><div class="plan-price">$0<span class="plan-per">/mo</span></div><div class="pf"><i class="ti ti-check"></i>3 listings · all regions</div><div class="pf"><i class="ti ti-check"></i>Basic messaging</div><div class="pf"><i class="ti ti-check"></i>Local currency display</div><div class="pf no"><i class="ti ti-x"></i>No verified badge</div><div class="pf no"><i class="ti ti-x"></i>No analytics</div><div class="pf no"><i class="ti ti-x"></i>No Vibel Pay</div></div>
+    <div class="plan-card feat"><div class="pop-b">Most popular</div><div class="plan-name">Pro</div><div class="plan-price">$19<span class="plan-per">/mo</span></div><div style="font-size:9px;color:var(--text3);margin-bottom:8px">₦ 9,500/mo · GH₵ 75/mo · £15/mo</div><div class="pf"><i class="ti ti-check"></i>Unlimited listings · global</div><div class="pf"><i class="ti ti-check"></i>Verified seller badge</div><div class="pf"><i class="ti ti-check"></i>Full analytics + country breakdown</div><div class="pf"><i class="ti ti-check"></i>Multi-currency pricing</div><div class="pf"><i class="ti ti-check"></i>Vibel Pay access</div><div class="pf"><i class="ti ti-check"></i>2 featured placements/mo</div></div>
+    <div class="plan-card"><div class="plan-name">Business</div><div class="plan-price">$79<span class="plan-per">/mo</span></div><div class="pf"><i class="ti ti-check"></i>Everything in Pro</div><div class="pf"><i class="ti ti-check"></i>Employer / brand profile</div><div class="pf"><i class="ti ti-check"></i>Team accounts (5 users)</div><div class="pf"><i class="ti ti-check"></i>API + bulk listing import</div><div class="pf"><i class="ti ti-check"></i>Dedicated compliance support</div><div class="pf"><i class="ti ti-check"></i>Priority dispute resolution</div></div>
+  </div>
+  <div style="font-size:10px;color:var(--text3);text-align:center">Job posts: $25/listing (all plans) · Featured boost: $10/week · Verified ID: one-time $5</div>
+</div>
+
+<!-- AI ASSISTANT -->
+<div id="pg-aiassist" class="pg">
+  <div class="ph"><div class="pt">AI assistant</div><div style="font-size:10px;color:var(--green);display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>Online · 12 languages</div></div>
+  <div class="quick-chips">
+    <div class="chip" onclick="chipSend('Show remote jobs paying over $90K globally')">Remote jobs $90K+</div>
+    <div class="chip" onclick="chipSend('Show listings in Nigeria')">Listings in Nigeria</div>
+    <div class="chip" onclick="chipSend('What currencies does Vibel support?')">Supported currencies</div>
+    <div class="chip" onclick="chipSend('Is my listing visible in the UK?')">UK visibility check</div>
+    <div class="chip" onclick="chipSend('What are prohibited items on Vibel?')">Prohibited items</div>
+    <div class="chip" onclick="chipSend('How does Vibel Pay work across borders?')">Cross-border payments</div>
+    <div class="chip" onclick="chipSend('How do I get KYC verified?')">Get verified</div>
+    <div class="chip" onclick="chipSend('Write a listing for my analytics service')">Write a listing for me</div>
+  </div>
+  <div class="ai-wrap">
+    <div class="ai-msgs" id="aiMsgs">
+      <div class="ai-bub bot">Hey Mitti! I'm your Vibel Global AI assistant. I can search listings in any country, explain compliance rules, check currency rates, flag suspicious contacts, or help you write multilingual listings. What do you need?</div>
+    </div>
+    <div class="ai-inp-row">
+      <input class="ai-input" id="aiInp" type="text" placeholder="Ask in any supported language…" onkeydown="if(event.key==='Enter')sendAI()">
+      <button class="ai-send" onclick="sendAI()" aria-label="Send"><i class="ti ti-send"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div id="pg-notifs" class="pg">
+  <div class="ph"><div class="pt">Notifications</div><button class="btn-o" style="font-size:10px">Mark all read</button></div>
+  <div class="notif-item"><div class="ni ni-g"><i class="ti ti-message"></i></div><div><div class="nt">Sarah K. (Fort Worth) replied to your MacBook listing</div><div class="ns">2 minutes ago · Translated from English</div></div></div>
+  <div class="notif-item"><div class="ni ni-b"><i class="ti ti-world"></i></div><div><div class="nt">Your AI Automation listing is now visible in 47 countries</div><div class="ns">1 hour ago · 12 new views from Nigeria</div></div></div>
+  <div class="notif-item"><div class="ni ni-a"><i class="ti ti-star"></i></div><div><div class="nt">Kwame A. (Accra) left you a 4-star review</div><div class="ns">3 hours ago · Reviews</div></div></div>
+  <div class="notif-item"><div class="ni ni-r"><i class="ti ti-scale"></i></div><div><div class="nt">Dispute #VB-1987 has a Global Mediation Panel assigned</div><div class="ns">5 hours ago · Cross-border UK/NG case</div></div></div>
+  <div class="notif-item"><div class="ni ni-g"><i class="ti ti-shield-check"></i></div><div><div class="nt">KYC Tier 3 verification approved</div><div class="ns">Yesterday · Vibel Pay now fully activated</div></div></div>
+  <div class="notif-item"><div class="ni ni-b"><i class="ti ti-credit-card"></i></div><div><div class="nt">Vibel Pay: ₦ 180,000 released from escrow</div><div class="ns">Yesterday · Chidi O. confirmed receipt</div></div></div>
+  <div class="notif-item"><div class="ni ni-g"><i class="ti ti-shield"></i></div><div><div class="nt">Compliance check passed — Nigeria market</div><div class="ns">Daily NDPR + KYC audit — all clear</div></div></div>
+</div>
+
+<!-- SETTINGS -->
+<div id="pg-settings" class="pg">
+  <div class="ph"><div class="pt">Settings</div></div>
+  <div class="g2">
+    <div class="set-card"><div class="set-head"><i class="ti ti-world"></i><div class="set-head-t">Locale &amp; language</div></div><div class="set-detail">Country · Currency · Language · Date format · Units (km/miles) · Timezone</div></div>
+    <div class="set-card"><div class="set-head"><i class="ti ti-user"></i><div class="set-head-t">Account &amp; KYC</div></div><div class="set-detail">Email · Phone · ID documents · KYC tier status · Two-factor authentication</div></div>
+    <div class="set-card"><div class="set-head"><i class="ti ti-credit-card"></i><div class="set-head-t">Payments &amp; Vibel Pay</div></div><div class="set-detail">Bank account · Local payment method · Payout currency · Tax documents · Escrow history</div></div>
+    <div class="set-card"><div class="set-head"><i class="ti ti-lock"></i><div class="set-head-t">Privacy &amp; data rights</div></div><div class="set-detail">GDPR data export · Right to erasure · Cookie settings · Ad preferences · Consent history</div></div>
+    <div class="set-card"><div class="set-head"><i class="ti ti-bell"></i><div class="set-head-t">Notifications</div></div><div class="set-detail">Email alerts · Push · SMS · Language preference · Digest frequency · Timezone</div></div>
+    <div class="set-card"><div class="set-head"><i class="ti ti-shield"></i><div class="set-head-t">Compliance &amp; legal</div></div><div class="set-detail">Active regulations · Consent history · Legal requests · Download your data · Delete account</div></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nav').forEach(n=>n.classList.remove('on'));
+  const pg=document.getElementById('pg-'+id);
+  if(pg)pg.classList.add('on');
+  const nav=document.querySelector('.nav[data-page="'+id+'"]');
+  if(nav)nav.classList.add('on');
+}
+
+document.querySelectorAll('.cat-tile[data-target]').forEach(tile=>{
+  tile.addEventListener('click',function(){
+    const target=this.getAttribute('data-target');
+    document.querySelectorAll('.cat-tile').forEach(t=>t.classList.remove('act'));
+    this.classList.add('act');
+    setTimeout(()=>{showPage(target);this.classList.remove('act');},200);
+  });
+});
+
+const filterConfigs={
+  jobsFilters:{listId:'jobsList',countId:'jobCount',label:'jobs',isGrid:false,
+    map:{all:null,remote:'remote',full:'full',contract:'contract',high:'high',hot:'hot',africa:'africa',europe:'europe',verified:'verified'}},
+  housingFilters:{listId:'housingList',countId:'housingCount',label:'listings',isGrid:true,
+    map:{all:null,apartment:'apartment',house:'house',room:'room',africa:'africa',europe:'europe',americas:'americas',verified:'verified'}},
+  forsaleFilters:{listId:'forsaleList',countId:'forsaleCount',label:'items',isGrid:true,
+    map:{all:null,electronics:'electronics',furniture:'furniture',africa:'africa',europe:'europe',americas:'americas',free:'free',verified:'verified'}},
+  servicesFilters:{listId:'servicesList',countId:'servicesCount',label:'services',isGrid:true,
+    map:{all:null,tech:'tech',legal:'legal',finance:'finance',security:'security',ai:'ai',remote:'remote',verified:'verified'}},
+  autosFilters:{listId:'autosList',countId:'autosCount',label:'vehicles',isGrid:true,
+    map:{all:null,car:'car',truck:'truck',electric:'electric',africa:'africa',europe:'europe',verified:'verified'}},
+  communityFilters:{listId:'communityList',countId:'communityCount',label:'posts',isGrid:true,
+    map:{all:null,event:'event',group:'group',gig:'gig',volunteer:'volunteer',lost:'lost'}},
+  mylistingsFilters:{listId:'mylistingsList',countId:'mylistingsCount',label:'listings',isGrid:true,
+    map:{all:null,active:'active',pending:'pending',sold:'sold'}}
+};
+
+Object.entries(filterConfigs).forEach(([barId,cfg])=>{
+  const bar=document.getElementById(barId);
+  if(!bar)return;
+  bar.querySelectorAll('.fb').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      bar.querySelectorAll('.fb').forEach(b=>b.classList.remove('act'));
+      this.classList.add('act');
+      const filter=this.getAttribute('data-filter');
+      const tag=cfg.map[filter];
+      const list=document.getElementById(cfg.listId);
+      if(!list)return;
+      const items=list.querySelectorAll(cfg.isGrid?'.card':'.row-job');
+      let vis=0;
+      items.forEach(item=>{
+        const tags=(item.getAttribute('data-tags')||'').split(' ');
+        const show=!tag||tags.includes(tag);
+        item.classList.toggle('hidden',!show);
+        if(show)vis++;
+      });
+      const ce=document.getElementById(cfg.countId);
+      if(ce)ce.textContent=vis===0?'No results for this filter':'Showing '+vis+' '+cfg.label;
+    });
+  });
+});
+
+function switchLocale(loc,el){
+  document.getElementById('localeDisplay').textContent=loc;
+  document.querySelectorAll('.country-card').forEach(c=>c.classList.remove('sel'));
+  if(el)el.classList.add('sel');
+}
+
+function sendMc(){
+  const i=document.getElementById('mcInp');
+  const t=i.value.trim();if(!t)return;
+  const c=document.getElementById('mcMsgs');
+  const u=document.createElement('div');u.className='bub me';u.textContent=t;c.appendChild(u);i.value='';
+  setTimeout(()=>{
+    const r=document.createElement('div');r.className='bub them';
+    r.textContent="Got it! I'll confirm details shortly. Using Vibel Pay for the safest transfer.";
+    c.appendChild(r);c.scrollTop=c.scrollHeight;
+  },600);
+  c.scrollTop=c.scrollHeight;
+}
+
+const aiRes={
+  'remote':'Found 47 remote jobs paying $90K+ globally. Top picks: Senior Data Analyst ($95–120K, TechVentures), Cybersecurity Consultant (£80–95K, London). Want me to filter by region or salary?',
+  'nigeria':'1,200+ active listings in Nigeria across Jobs, For Sale, Services, and Housing. All prices in NGN. Payment via Paystack. Want me to show you the top listings?',
+  'currenc':'Vibel supports 38 currencies with live FX rates updated every 15 minutes — USD, EUR, GBP, NGN, GHS, KES, ZAR, INR, AED, BRL, CAD, AUD and 26 more. Which do you need?',
+  'uk':'Yes — your listing is visible in the UK. Prices auto-convert to GBP. UK GDPR compliance active. About 3,000 active UK buyers on Vibel right now.',
+  'prohibit':'Zero-tolerance prohibited items: weapons, illegal drugs, counterfeit goods, trafficking content, CSAM, stolen goods, financial fraud instruments, stalkerware, hazmat, hate speech, sanctions-violating trade, and scam infrastructure. Immediate ban + law enforcement referral.',
+  'cross':'Vibel Pay holds funds in escrow until both parties confirm. Buyer pays in their currency (e.g. USD), seller receives in their currency (e.g. NGN). Vibel handles FX conversion at live rates minus a 1.5% fee. Fully transparent in the transaction summary.',
+  'kyc':'Three tiers: Tier 1 (email + phone) to browse. Tier 2 (government ID + selfie via Persona.com) to post listings — takes under 2 minutes. Tier 3 (ID + bank account) to receive Vibel Pay payments. Go to Settings > Account & KYC to start.',
+  'listing':"Tell me the service name, what you offer, your price, and who it's for. I'll write a polished, multilingual listing you can post with one click. Which markets do you want to target?",
+  'default':"I can search listings in any country, explain compliance rules by region, convert prices, check if your listing is visible globally, flag suspicious contacts, or write multilingual listing descriptions. What do you need?"
+};
+
+function chipSend(t){document.getElementById('aiInp').value=t;sendAI();}
+
+function sendAI(){
+  const i=document.getElementById('aiInp');
+  const t=i.value.trim();if(!t)return;
+  const c=document.getElementById('aiMsgs');
+  const u=document.createElement('div');u.className='ai-bub user';u.textContent=t;c.appendChild(u);i.value='';
+  setTimeout(()=>{
+    const low=t.toLowerCase();
+    let rep=aiRes.default;
+    for(const k in aiRes){if(low.includes(k)){rep=aiRes[k];break;}}
+    const b=document.createElement('div');b.className='ai-bub bot';b.textContent=rep;
+    c.appendChild(b);c.scrollTop=c.scrollHeight;
+  },520);
+  c.scrollTop=c.scrollHeight;
+}
+</script>
+</body>
+</html>
